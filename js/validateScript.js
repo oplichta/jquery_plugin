@@ -5,16 +5,17 @@ function btnBlock(textErr,emailErr,passwordErr){
 		$('.btn').attr("disabled", false);
 		$('.btn').removeClass("btn-block");
 		$('.btn').removeClass("btn-danger");
+		$('.btn').addClass("btn-success");
 	} else {
 		$('.btn').attr("disabled", true);
 		$('.btn').addClass("btn-danger");
-		// $('.btn').removeClass("btn-success");
 	}
 }
 $('#textInput').keyup(function (){
 	$('#textInput').validate("textExpression",{
-		"min": true,
-		"max": true,
+		"pattern": "[A-ZĄĆĘŁŃÓŚŹŻ][a-ząćęłóńśźż]",
+		"minValue": 5,
+		"maxValue": 10,
 		// "regex": "^[A-Z]\\w+",
 		"correct": function (that) {
 			textErr=1;
@@ -44,7 +45,6 @@ $('#emailInput').keyup(function (){
 			btnBlock(textErr,emailErr,passwordErr);
 		}
 	});
-
 });
 
 $('#passwordInput').keyup(function (){
@@ -53,7 +53,9 @@ $('#passwordInput').keyup(function (){
 		"big": true,
 		"dig": true,
 		"min": true,
+		"minValue": 10,
 		"max": true,
+		"maxValue":10,
 		"correct": function (that) {
 			passwordErr=1;
 			$(that).parent().removeClass("has-error");

@@ -16,7 +16,19 @@
 					if(patt.test(value)){
 						isCorrect = true;
 					}
+        var min=options.minValue;
+        var max=options.maxValue;
 
+        if(0<options.minValue){
+          if(value.length<min){
+            isCorrect = false;
+          }
+        }
+        if(options.minValue<options.maxValue){
+          if(max<value.length){
+            isCorrect = false;
+          }
+        }
 				if(isCorrect){
 					options.correct(this);
 				} else {
@@ -29,7 +41,10 @@
 		textExpression : function(options) {
 				var isCorrect = false;
 				var settings = $.extend({
-					"pattern": "[A-Za-z]\\w+"}, options);
+					"pattern": "[A-Za-z]\\w+",
+        "minValue": 5,
+        "maxValue": 10},
+           options);
 			return methods.regexp.call(this, settings);
 
 		},
@@ -40,7 +55,8 @@
 				"pattern": "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\." +
 				"[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@" +
 		        "(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+" +
-		        "[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"}, options);
+		        "[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
+          }, options);
 
 			return methods.regexp.call(this, settings);
 		},
@@ -51,8 +67,8 @@
         var isCorrect = true;
         var value = $(this).val();
         var patt;
-        var min=5;
-        var max=10;
+        var min=options.minValue;
+        var max=options.maxValue;
 
         if(options.min){
           if(value.length<min){
